@@ -1,10 +1,19 @@
 module.exports = function getZerosCount(number, base) {
+  //https://math.stackexchange.com/questions/226868/number-of-trailing-zeros-in-a-factorial-in-base-b
   let arr = getSimpleMn(base);
+  let arr1 = {};
+  arr.forEach(d=>{
+    if (arr1[d]){
+      arr1[d] = arr1[d]+1;
+    } else {
+        arr1[d] = 1;
+    }
+  });
   let  res = Number.MAX_VALUE;
-  for (let i = 0; i<arr.length;i++){
-    let mn = arr[i];
-    let c= getMaxPow(number, mn);
-    res = Math.min(c,res);
+  for (let key in arr1) {
+    let power = arr1[key];
+    let c= getMaxPow(number, key);
+    res = Math.min(Math.floor(c/power),res);
   }
   return res;
 
